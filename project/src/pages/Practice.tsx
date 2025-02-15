@@ -1,7 +1,16 @@
 import React from 'react';
+import { useNavigate } from "react-router-dom";
 import { Brain, Target, Trophy, Zap } from 'lucide-react';
 
 const Practice = () => {
+
+  const navigate = useNavigate();
+
+  const practices = [
+    { title: "Algebra Basics", questions: 15, difficulty: "Medium", path: "/quiz-algebra" },
+    { title: "Chemical Equations", questions: 10, difficulty: "Hard", path: "/quiz-chemical" },
+    { title: "Historical Events", questions: 20, difficulty: "Easy", path: "/quiz-historical" },
+  ];
   return (
     <div className="space-y-6">
       <header>
@@ -61,26 +70,25 @@ const Practice = () => {
 
       <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
         <div className="bg-white p-6 rounded-xl shadow-sm border border-gray-200">
-          <h2 className="text-xl font-semibold mb-4">Recommended Practice</h2>
-          <div className="space-y-4">
-            {[
-              { title: 'Algebra Basics', questions: 15, difficulty: 'Medium' },
-              { title: 'Chemical Equations', questions: 10, difficulty: 'Hard' },
-              { title: 'Historical Events', questions: 20, difficulty: 'Easy' },
-            ].map((practice, index) => (
-              <div key={index} className="flex items-center justify-between p-4 bg-gray-50 rounded-lg">
-                <div>
-                  <p className="font-medium">{practice.title}</p>
-                  <p className="text-sm text-gray-600">
-                    {practice.questions} questions • {practice.difficulty}
-                  </p>
-                </div>
-                <button className="bg-indigo-600 text-white px-4 py-2 rounded-lg hover:bg-indigo-700">
-                  Start
-                </button>
-              </div>
-            ))}
+        <h2 className="text-xl font-semibold mb-4">Recommended Practice</h2>
+      <div className="space-y-4">
+        {practices.map((practice, index) => (
+          <div key={index} className="flex items-center justify-between p-4 bg-gray-50 rounded-lg">
+            <div>
+              <p className="font-medium">{practice.title}</p>
+              <p className="text-sm text-gray-600">
+                {practice.questions} questions • {practice.difficulty}
+              </p>
+            </div>
+            <button
+              onClick={() => navigate(practice.path)}
+              className="bg-indigo-600 text-white px-4 py-2 rounded-lg hover:bg-indigo-700"
+            >
+              Start
+            </button>
           </div>
+        ))}
+      </div>
         </div>
 
         <div className="bg-white p-6 rounded-xl shadow-sm border border-gray-200">

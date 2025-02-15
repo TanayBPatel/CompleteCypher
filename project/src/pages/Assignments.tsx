@@ -1,7 +1,20 @@
 import React from 'react';
 import { ClipboardList, AlertCircle, CheckCircle, Clock } from 'lucide-react';
+import algebraPdf from './algebra.pdf';
 
 const Assignments = () => {
+  const handleStartClick = (assignment) => {
+    // const pdfMap = {
+    //   'Algebra Problem Set': '/algebra.pdf',
+    //   'Lab Report': '/pdfs/lab-report.pdf',
+    //   'Essay': '/pdfs/essay.pdf',
+    // };
+
+    // const pdfUrl = pdfMap[assignment.title] || '/pdfs/default.pdf';
+    // window.open(pdfUrl, '_blank');
+    window.open(algebraPdf, '_blank');
+  };
+
   return (
     <div className="space-y-6">
       <header>
@@ -63,7 +76,10 @@ const Assignments = () => {
                   <p className="text-sm font-medium text-gray-900">Due {assignment.due}</p>
                   <p className="text-sm text-gray-600">Status: {assignment.status}</p>
                 </div>
-                <button className="bg-indigo-600 text-white px-4 py-2 rounded-lg hover:bg-indigo-700">
+                <button
+                  onClick={() => handleStartClick(assignment)}
+                  className="bg-indigo-600 text-white px-4 py-2 rounded-lg hover:bg-indigo-700"
+                >
                   Start
                 </button>
               </div>

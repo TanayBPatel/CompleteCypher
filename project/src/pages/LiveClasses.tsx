@@ -1,6 +1,6 @@
 import React from 'react';
 import { Video, Users, Calendar } from 'lucide-react';
-
+import { Link } from 'react-router-dom';
 const LiveClasses = () => {
   return (
     <div className="space-y-6">
@@ -22,7 +22,8 @@ const LiveClasses = () => {
               <Video className="w-5 h-5 text-green-500" />
               <span className="text-green-500 font-medium">Live Now</span>
             </div>
-            <button className="bg-green-500 text-white px-3 py-1 rounded-lg text-sm">
+            <button className="bg-green-500 text-white px-3 py-1 rounded-lg text-sm"
+            onClick={() => window.open('https://www.youtube.com/watch?v=dQw4w9WgXcQ', '_blank')}>
               Join
             </button>
           </div>
@@ -41,7 +42,9 @@ const LiveClasses = () => {
         </div>
 
         {/* Upcoming Classes */}
+        {/* <Link to='teams'> */}
         {[1, 2].map((i) => (
+          <Link to='/teams'>
           <div key={i} className="bg-white p-6 rounded-xl shadow-sm border border-gray-200">
             <div className="flex items-center justify-between mb-4">
               <div className="flex items-center space-x-2">
@@ -67,7 +70,9 @@ const LiveClasses = () => {
               </div>
             </div>
           </div>
+          </Link>
         ))}
+        {/* </Link> */}
       </div>
 
       <div className="bg-white p-6 rounded-xl shadow-sm border border-gray-200">
@@ -79,9 +84,11 @@ const LiveClasses = () => {
                 <p className="font-medium">{day}</p>
                 <p className="text-sm text-gray-600">3 Classes Scheduled</p>
               </div>
+              <Link to='/teams'>
               <button className="text-indigo-600 hover:text-indigo-700">
                 View Details
               </button>
+              </Link>
             </div>
           ))}
         </div>

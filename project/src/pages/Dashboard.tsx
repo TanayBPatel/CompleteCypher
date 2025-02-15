@@ -1,7 +1,58 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { Flame, Clock, Award, BookOpen } from 'lucide-react';
 
 const Dashboard = () => {
+  const [minutesSpent, setMinutesSpent] = useState(() => {
+    return parseInt(localStorage.getItem("minutesSpent")) || 0;
+  });
+  
+  const [activities, setActivities] = useState(() => {
+    const savedActivities = localStorage.getItem("activities");
+    return savedActivities ? JSON.parse(savedActivities) : [
+      { id: 1, text: "Completed Practice Set", subject: "Mathematics", minutesAgo: 15 },
+      { id: 2, text: "Watched Recording", subject: "Science", minutesAgo: 60 },
+    ];
+  });
+
+  const [upcomingClasses, setUpcomingClasses] = useState([
+    { id: 1, subject: "Mathematics", topic: "Algebra Basics", timeUntilClass: 30 },
+    { id: 2, subject: "Science", topic: "Chemistry Lab", timeUntilClass: 120 },
+  ]);
+
+  useEffect(() => {
+    const interval = setInterval(() => {
+      setMinutesSpent((prev) => {
+        const updatedMinutes = prev + 1;
+        localStorage.setItem("minutesSpent", updatedMinutes);
+        return updatedMinutes;
+      });
+      
+      setActivities((prev) => {
+        const updatedActivities = prev.map((activity) => ({
+          ...activity,
+          minutesAgo: activity.minutesAgo + 1,
+        }));
+        localStorage.setItem("activities", JSON.stringify(updatedActivities));
+        return updatedActivities;
+      });
+
+      setUpcomingClasses((prev) => {
+        return prev.map((cls) => ({
+          ...cls,
+          timeUntilClass: Math.max(cls.timeUntilClass - 1, 0),
+        }));
+      });
+    }, 60000); // Update every minute
+
+    return () => clearInterval(interval);
+  }, []);
+
+  const formatTimeSpent = () => {
+    const hours = Math.floor((120 + minutesSpent) / 60);
+    const mins = (120 + minutesSpent) % 60;
+    return `${hours}h ${mins}m`;
+  };
+
   return (
     <div className="space-y-6">
       <header>
@@ -29,7 +80,7 @@ const Dashboard = () => {
             </div>
             <div>
               <p className="text-sm text-gray-600">Time Spent Today</p>
-              <p className="text-xl font-semibold">2h 15m</p>
+              <p className="text-xl font-semibold">{formatTimeSpent()}</p>
             </div>
           </div>
         </div>
@@ -63,44 +114,34 @@ const Dashboard = () => {
         <div className="bg-white p-6 rounded-xl shadow-sm border border-gray-200">
           <h2 className="text-xl font-semibold mb-4">Upcoming Classes</h2>
           <div className="space-y-4">
-            <div className="flex items-center justify-between p-4 bg-gray-50 rounded-lg">
-              <div>
-                <p className="font-medium">Mathematics</p>
-                <p className="text-sm text-gray-600">Algebra Basics</p>
+            {upcomingClasses.map((cls) => (
+              <div key={cls.id} className="flex items-center justify-between p-4 bg-gray-50 rounded-lg">
+                <div>
+                  <p className="font-medium">{cls.subject}</p>
+                  <p className="text-sm text-gray-600">{cls.topic}</p>
+                </div>
+                <p className="text-sm text-indigo-600">In {cls.timeUntilClass} minutes</p>
               </div>
-              <p className="text-sm text-indigo-600">In 30 minutes</p>
-            </div>
-            <div className="flex items-center justify-between p-4 bg-gray-50 rounded-lg">
-              <div>
-                <p className="font-medium">Science</p>
-                <p className="text-sm text-gray-600">Chemistry Lab</p>
-              </div>
-              <p className="text-sm text-indigo-600">Today, 2:00 PM</p>
-            </div>
+            ))}
           </div>
         </div>
 
         <div className="bg-white p-6 rounded-xl shadow-sm border border-gray-200">
           <h2 className="text-xl font-semibold mb-4">Recent Activities</h2>
           <div className="space-y-4">
-            <div className="flex items-center space-x-3">
-              <div className="bg-green-100 p-2 rounded-full">
-                <Award className="w-4 h-4 text-green-500" />
+            {activities.map((activity) => (
+              <div key={activity.id} className="flex items-center space-x-3">
+                <div className="bg-green-100 p-2 rounded-full">
+                  <Clock className="w-4 h-4 text-gray-500 animate-pulse" />
+                </div>
+                <div>
+                  <p className="font-medium">{activity.text}</p>
+                  <p className="text-sm text-gray-600">
+                    {activity.subject} - {activity.minutesAgo} minutes ago
+                  </p>
+                </div>
               </div>
-              <div>
-                <p className="font-medium">Completed Practice Set</p>
-                <p className="text-sm text-gray-600">Mathematics - 15 minutes ago</p>
-              </div>
-            </div>
-            <div className="flex items-center space-x-3">
-              <div className="bg-blue-100 p-2 rounded-full">
-                <BookOpen className="w-4 h-4 text-blue-500" />
-              </div>
-              <div>
-                <p className="font-medium">Watched Recording</p>
-                <p className="text-sm text-gray-600">Science - 1 hour ago</p>
-              </div>
-            </div>
+            ))}
           </div>
         </div>
       </div>

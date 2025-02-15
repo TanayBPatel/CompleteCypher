@@ -2,6 +2,44 @@ import React from 'react';
 import { PlaySquare, Clock, Download, Search } from 'lucide-react';
 
 const Recordings = () => {
+  const recordings = [
+    { 
+      title: 'Introduction to Algebra', 
+      subject: 'Mathematics', 
+      duration: '45 mins', 
+      link: 'https://www.youtube.com/watch?v=K8zFkjJQPI4' // Algebra Basics
+    },
+    { 
+      title: 'Chemical Reactions', 
+      subject: 'Science', 
+      duration: '50 mins', 
+      link: 'https://www.youtube.com/watch?v=2vR8o5gT75E' // Chemical Reactions Explained
+    },
+    { 
+      title: 'World War II Overview', 
+      subject: 'History', 
+      duration: '60 mins', 
+      link: 'https://www.youtube.com/watch?v=Q78COTwT7nE' // World War II Documentary
+    },
+  ];
+
+  const recentlyWatched = [
+    { 
+      title: 'Algebraic Expressions', 
+      time: '2 hours ago', 
+      link: 'https://www.youtube.com/watch?v=mFrgUoG4V5A' // Algebraic Expressions Basics
+    },
+    { 
+      title: 'Periodic Table', 
+      time: 'Yesterday', 
+      link: 'https://www.youtube.com/watch?v=0RRVV4Diomg' // Periodic Table Explanation
+    },
+  ];
+
+  const openVideo = (url) => {
+    window.open(url, '_blank');
+  };
+
   return (
     <div className="space-y-6">
       <header className="flex justify-between items-center">
@@ -20,11 +58,7 @@ const Recordings = () => {
       </header>
 
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-        {[
-          { title: 'Introduction to Algebra', subject: 'Mathematics', duration: '45 mins' },
-          { title: 'Chemical Reactions', subject: 'Science', duration: '50 mins' },
-          { title: 'World War II Overview', subject: 'History', duration: '60 mins' },
-        ].map((recording, index) => (
+        {recordings.map((recording, index) => (
           <div key={index} className="bg-white p-6 rounded-xl shadow-sm border border-gray-200">
             <div className="flex items-center justify-between mb-4">
               <div className="flex items-center space-x-2">
@@ -42,7 +76,10 @@ const Recordings = () => {
                 <span>{recording.duration}</span>
               </div>
             </div>
-            <button className="mt-4 w-full bg-indigo-50 text-indigo-600 px-4 py-2 rounded-lg hover:bg-indigo-100 transition-colors">
+            <button 
+              onClick={() => openVideo(recording.link)}
+              className="mt-4 w-full bg-indigo-50 text-indigo-600 px-4 py-2 rounded-lg hover:bg-indigo-100 transition-colors"
+            >
               Watch Now
             </button>
           </div>
@@ -52,11 +89,11 @@ const Recordings = () => {
       <div className="bg-white p-6 rounded-xl shadow-sm border border-gray-200">
         <h2 className="text-xl font-semibold mb-4">Recently Watched</h2>
         <div className="space-y-4">
-          {[
-            { title: 'Algebraic Expressions', time: '2 hours ago' },
-            { title: 'Periodic Table', time: 'Yesterday' },
-          ].map((item, index) => (
-            <div key={index} className="flex items-center justify-between p-4 bg-gray-50 rounded-lg">
+          {recentlyWatched.map((item, index) => (
+            <div 
+              key={index} 
+              className="flex items-center justify-between p-4 bg-gray-50 rounded-lg"
+            >
               <div className="flex items-center space-x-3">
                 <PlaySquare className="w-5 h-5 text-indigo-500" />
                 <div>
@@ -64,7 +101,10 @@ const Recordings = () => {
                   <p className="text-sm text-gray-600">Watched {item.time}</p>
                 </div>
               </div>
-              <button className="text-indigo-600 hover:text-indigo-700">
+              <button 
+                onClick={() => openVideo(item.link)}
+                className="text-indigo-600 hover:text-indigo-700"
+              >
                 Resume
               </button>
             </div>

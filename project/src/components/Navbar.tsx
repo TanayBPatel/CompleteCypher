@@ -1,5 +1,6 @@
 import React from 'react';
 import { Bell, Settings, User } from 'lucide-react';
+import { Link } from 'react-router-dom';
 
 const Navbar = () => {
   return (
@@ -7,9 +8,11 @@ const Navbar = () => {
       <div className="flex justify-between items-center">
         <div className="flex items-center space-x-4">
           <h1 className="text-2xl font-bold text-indigo-600">AdaptLearn</h1>
+          <Link to="/speech" >
           <button className="text-gray-600 hover:text-indigo-600">
-            Text-to-Speech
+            Summary-to-Speech
           </button>
+          </Link>
         </div>
         <div className="flex items-center space-x-4">
           <button className="p-2 hover:bg-gray-100 rounded-full">
