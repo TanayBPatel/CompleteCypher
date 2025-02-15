@@ -158,8 +158,8 @@ const Notes: React.FC = () => {
                 <button onClick={() => toggleFavourite(index)} className="p-1">
                   <img
                     src={note.isFavourite
-                      ? "https://img.icons8.com/?size=100&id=8ggStxqyboK5&format=png&color=000000"
-                      : "https://img.icons8.com/?size=100&id=19295&format=png&color=000000"
+                      ? "/star-filled.png"
+                      : "/star-empty.png"
                     }
                     alt="Favourite Star"
                     className="w-6 h-6"
