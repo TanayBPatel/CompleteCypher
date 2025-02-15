@@ -243,7 +243,7 @@ const Notes: React.FC = () => {
             />
             <button
               onClick={confirmDelete}
-              className="w-full bg-red-600 text-white py-2 rounded-lg hover:bg-red-700"
+              className="w-full bg-red-400 text-white py-2 rounded-lg hover:bg-red-700"
             >
               Delete
             </button>
