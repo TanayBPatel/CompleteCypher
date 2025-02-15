@@ -11,7 +11,7 @@ import Assignments from "./pages/Assignments";
 import Practice from "./pages/Practice";
 import Questions from "./pages/Questions";
 import Progress from "./pages/Progress";
-import TextToSpeech from "./pages/TextToSpeech";
+import TextToSpeech from "./pages/textToSpeech";
 import { TimerProvider } from "./context/TimerContext"; // Import the TimerProvider
 import QuizComponent from "./pages/qna";
 import DiscussionPage from "./pages/discussionPage";
