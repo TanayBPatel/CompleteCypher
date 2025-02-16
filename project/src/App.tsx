@@ -16,6 +16,7 @@ import { TimerProvider } from "./context/TimerContext"; // Import the TimerProvi
 import QuizComponent from "./pages/qna";
 import DiscussionPage from "./pages/discussionPage";
 import TeamsMeetingUI from "./pages/meetingUI";
+import Story from "./pages/storyMode"
 function App() {
   const [showDiscussion, setShowDiscussion] = useState(false);
 
@@ -287,7 +288,7 @@ function App() {
                 <Route path="/questions/mathdiscussion"  element={<DiscussionPage question={mathDiscussion} onBack={() => setShowDiscussion(false)}  />}/>
                 <Route path="/historydiscussion"  element={<DiscussionPage question={ww2Discussion} onBack={() => setShowDiscussion(false)}  />}/>
                 <Route path="/teams"  element={<TeamsMeetingUI />}/>
-                
+                <Route path="/story"  element={<Story/>}/>
               </Routes>
             </main>
           </div>

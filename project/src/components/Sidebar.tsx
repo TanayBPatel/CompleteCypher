@@ -20,7 +20,8 @@ const Sidebar = () => {
     { to: "/assignments", icon: ClipboardList, label: "Assignments" },
     { to: "/practice", icon: Brain, label: "Practice" },
     { to: "/questions", icon: MessageCircle, label: "Questions" },
-    { to: "/progress", icon: BarChart2, label: "Progress" }
+    { to: "/progress", icon: BarChart2, label: "Progress" },
+    { to: "/story", icon:  FileText, label: "Story Mode" }
   ];
 
   return (
